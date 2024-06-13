@@ -1,0 +1,19 @@
+{
+  "name": "zotify-gui",
+  "version": "1.0.0",
+  "description": "A GUI built with electron.js and react.js for the python program Zotify.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UnGerardo/Zotify-GUI.git"
+  },
+  "author": "UnGerardo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UnGerardo/Zotify-GUI/issues"
+  },
+  "homepage": "https://github.com/UnGerardo/Zotify-GUI#readme"
+}
