@@ -1,1 +1,1 @@
-# Zotify-GUI
+# Zotify GUI
