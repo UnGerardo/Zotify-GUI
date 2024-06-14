@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "electron": "electron electron/main.js",
     "electron:serve": "concurrently -k \"cross-env BROWSER=none npm run dev\" \"npm run electron:start\"",
-    "electron:start": "wait-on tcp:5173 && npm run electron"
+    "electron:start": "wait-on tcp:5173 && npm run electron",
+    "electron:build": "npm run build && electron-builder -c.extraMetadata.main=build/main.js"
   },
   "dependencies": {
     "react": "^18.2.0",
