@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/UnGerardo/Zotify-GUI/issues"
   },
-  "homepage": "https://github.com/UnGerardo/Zotify-GUI#readme"
+  "homepage": "https://github.com/UnGerardo/Zotify-GUI#readme",
+  "devDependencies": {
+    "electron": "^31.0.1"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
 }
