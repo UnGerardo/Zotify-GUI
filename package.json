@@ -16,7 +16,21 @@
     "electron:start": "wait-on tcp:5173 && npm run electron",
     "electron:build": "npm run build && electron-builder -c.extraMetadata.main=build/main.js"
   },
+  "build": {
+    "extends": null,
+    "appId": "com.ungerardo.zotify-gui",
+    "files": [
+      "dist/**/*",
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
   "dependencies": {
+    "electron-is-dev": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -27,6 +41,7 @@
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
     "electron": "^31.0.1",
+    "electron-builder": "^24.13.3",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
