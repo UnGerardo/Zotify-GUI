@@ -1,0 +1,16 @@
+html {
+  font-family: Menlo, Helvetica, sans-serif;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+input:focus {
+  outline: none;
+}
