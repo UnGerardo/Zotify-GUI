@@ -9,11 +9,41 @@
     />
     <title>Hello World!</title>
     <link rel="stylesheet" href="cssReset.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>Zotify GUI</h1>
-    <button id="b">Run</button>
+    <section id="title-bar">
+      <h1>Zotify GUI</h1>
+    </section>
+
+    <main>
+      <section id="url-input">
+        <img src="info.png" alt="info icon"> <!-- On hover, show description -->
+        <p>Description of inputs</p>
+        <input type="text" placeholder="URL...">
+        <button>Run</button>
+      </section>
+      <section id="zotify-info">
+        <section id="parameters">
+          <section class="parameter">
+            <img src="info.png" alt="info icon"> <!-- On hover, show description -->
+            <p>Description</p>
+            <label for="output">Output</label>
+            <input type="text">
+          </section>
+        </section>
+        <section id="downloads">
+          <section class="download">
+            <p>Track Name</p>
+            <p>Artist Name</p>
+            <p>Album</p>
+            <p>Playlist?</p>
+            <img src="greenCheck.png" alt="success">
+          </section>
+        </section>
+      </section>
+    </main>
+
     <script src="renderer.js"></script>
-    <script src="script.js"></script>
   </body>
 </html>
