@@ -4,7 +4,5 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  spawnChildProcess: (arg) => {
-    ipcRenderer.send('spawn-child-process', arg)
-  }
+  spawnZotify: (arg) => ipcRenderer.invoke('spawn-zotify', arg)
 });

@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const { spawn } = require('node:child_process');
+const { spawn, spawnSync } = require('node:child_process');
 const path = require('node:path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -35,24 +35,18 @@ app.on('window-all-closed', () => {
   }
 });
 
-function spawnZotify(arg) {
-  console.log(`From within spawnZotify: ${arg}`);
-  const child = spawn('zotify', ['-h']);
+ipcMain.handle('spawn-zotify', (event, arg) => {
+  console.log(`Spawning zotify with arg: ${arg}`);
 
-  child.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
-  });
+  const zotifyInstance = spawnSync('zotify', ['-h']);
 
-  child.stderr.on('data', (data) => {
-      console.error(`stderr: ${data}`);
-  });
-
-  child.on('close', (code) => {
-      console.log(`child process exited with code ${code}`);
-  });
-}
-
-ipcMain.on('spawn-child-process', (event, arg) => {
-  console.log(`Spawning process with arg: ${arg}`);
-  spawnZotify(arg);
+  if (zotifyInstance.error) {
+    console.log(`Error: ${zotifyInstance.error.message}`);
+    return new TextDecoder().decode(zotifyInstance.error.message);
+  } else {
+    console.log(`STDOUT: \n${zotifyInstance.stdout}`);
+    console.log(`STDERR: \n${zotifyInstance.stderr}`);
+    console.log(`STATUS: ${zotifyInstance.status}`);
+    return new TextDecoder().decode(zotifyInstance.stdout);
+  }
 });
