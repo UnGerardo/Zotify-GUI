@@ -1,3 +1,7 @@
+.flex-align-center {
+  display: flex;
+  align-items: center;
+}
 
 body {
   display: flex;
@@ -36,7 +40,19 @@ main {
 
 #parameters {
   border-right: 1px black solid;
+  padding: 10px;
   width: 25%;
+}
+
+.parameter {
+  border: 1px #999 solid;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 5px;
+  margin-bottom: 10px;
 }
 
 #downloads {
@@ -45,4 +61,9 @@ main {
 
 .download {
   display: flex;
+}
+
+img {
+  height: 20px;
+  padding-right: 5px;
 }

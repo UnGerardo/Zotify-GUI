@@ -18,18 +18,217 @@
 
     <main>
       <section id="url-input">
-        <img src="info.png" alt="info icon"> <!-- On hover, show description -->
+        <img src="../icons/info.png" alt="info icon"> <!-- On hover, show description -->
         <p>Description of inputs</p>
         <input type="text" placeholder="URL...">
         <button>Run</button>
       </section>
       <section id="zotify-info">
         <section id="parameters">
+          <!-- Basic Layout
           <section class="parameter">
-            <img src="info.png" alt="info icon"> <!-- On hover, show description -->
-            <p>Description</p>
-            <label for="output">Output</label>
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon"> // On hover, show description
+              <label for="output">Output</label>
+            </section>
             <input type="text">
+          </section> -->
+          <!-- Option: Credentials Location -->
+          <!-- <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="credentials-location">Credentials Location</label>
+            </section>
+            <input name="credentials-location" type="text">
+          </section> -->
+          <!-- Option: Output -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="output">Output</label>
+            </section>
+            <input name="output" type="text">
+          </section>
+          <!-- Option: Song Archive -->
+          <!-- <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="song-archive">Song Archive</label>
+            </section>
+            <input name="song-archive" type="text">
+          </section> -->
+          <!-- Option: Root Path -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="root-path">Root Path</label>
+            </section>
+            <input name="root-path" type="text">
+          </section>
+          <!-- Option: Root Podcast Path -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="root-podcast-path">Root Podcast Path</label>
+            </section>
+            <input name="root-podcast-path" type="text">
+          </section>
+          <!-- Option: Split Album Discs -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="split-album-discs">Split Album Discs</label>
+            </section>
+            <select name="split-album-discs">
+              <option value="false">False</option>
+              <option value="true">True</option>
+            </select>
+          </section>
+          <!-- Option: Download Lyrics -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="download-lyrics">Download Lyrics</label>
+            </section>
+            <select name="download-lyrics">
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          </section>
+          <!-- Option: Metadata All Genres -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="metadata-all-genres">Metadata All Genres</label>
+            </section>
+            <select name="md-all-genres">
+              <option value="false">False</option>
+              <option value="true">True</option>
+            </select>
+          </section>
+          <!-- Option: Download Format -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="download-format">Download Format</label>
+            </section>
+            <select name="download-format">
+              <option value="ogg">ogg</option>
+              <option value="aac">aac</option>
+              <option value="fdk_aac">fdk_aac</option>
+              <option value="m4a">m4a</option>
+              <option value="mp3">mp3</option>
+              <option value="opus">opus</option>
+              <option value="vorbis">vorbis</option>
+            </select>
+          </section>
+          <!-- Option: Download Quality -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="download-quality">Download Quality</label>
+            </section>
+            <select name="download-quality">
+              <option value="auto">Auto</option>
+              <option value="normal">Normal</option>
+              <option value="high">High</option>
+              <option value="very-high">Very High</option>
+            </select>
+          </section>
+          <!-- Option: Transcode Bitrate -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="transcode-bitrate">Transcode Bitrate</label>
+            </section>
+            <input name="transcode-bitrate" type="text" value="auto">
+          </section>
+          <!-- Option: Skip Existing Files -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="skip-existing-files">Skip Existing Files</label>
+            </section>
+            <select name="skip-existing-files">
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          </section>
+          <!-- Option: Skip Previously Downloaded -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="skip-previously-downloaded">Skip Previously Downloaded</label>
+            </section>
+            <select name="skip-previously-downloaded">
+              <option value="false">False</option>
+              <option value="true">True</option>
+            </select>
+          </section>
+          <!-- Option: Retry Attempts -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="retry-attempts">Retry Attempts</label>
+            </section>
+            <input name="retry-attempts" type="text" value="1">
+          </section>
+          <!-- Option: Bulk Wait Time -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="bulk-wait-time">Bulk Wait Time</label>
+            </section>
+            <input name="bulk-wait-time" type="text" value="1">
+          </section>
+          <!-- Option: Override Auto Wait -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="override-auto-wait">Override Auto Wait</label>
+            </section>
+            <select name="override-auto-wait">
+              <option value="false">False</option>
+              <option value="true">True</option>
+            </select>
+          </section>
+          <!-- Option: Chunk Size -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="chunk-size">Chunk Size</label>
+            </section>
+            <input name="chunk-size" type="text" value="20000">
+          </section>
+          <!-- Option: Download Real Time -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="download-real-time">Download Real Time</label>
+            </section>
+            <select name="download-real-time">
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          </section>
+          <!-- Option: Language -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="language">Language</label>
+            </section>
+            <select name="language">
+              <option value="en">en</option>
+              <option value="es">es</option>
+            </select>
+          </section>
+          <!-- Option: Temp Download Dir -->
+          <section class="parameter">
+            <section class="flex-align-center">
+              <img src="../icons/info.png" alt="info icon">
+              <label for="temp-download-dir">Temp Download Dir</label>
+            </section>
+            <input name="temp-download-dir" type="text" value="">
           </section>
         </section>
         <section id="downloads">
@@ -38,12 +237,11 @@
             <p>Artist Name</p>
             <p>Album</p>
             <p>Playlist?</p>
-            <img src="greenCheck.png" alt="success">
+            <img src="../icons/greenCheck.png" alt="success">
           </section>
         </section>
       </section>
     </main>
-
     <script src="renderer.js"></script>
   </body>
 </html>
