@@ -74,5 +74,5 @@ function $renderDownload(trackName, artistName, status) {
   $flexCol.appendChild($artistName);
   $download.appendChild($flexCol);
   $download.appendChild($icon);
-  $downloads.appendChild($download);
+  $downloads.insertBefore($download, $downloads.firstChild);
 }
