@@ -67,6 +67,7 @@ main {
 
 #downloads {
   border-top: 1px black solid;
+  overflow-y: auto;
   width: 75%;
 }
 
