@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const { spawn, spawnSync } = require('node:child_process');
+const { spawnSync } = require('node:child_process');
+const { platform } = require('node:os');
 const path = require('node:path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -37,10 +38,14 @@ app.on('window-all-closed', () => {
   }
 });
 
-ipcMain.handle('spawn-zotify', (event, arg) => {
-  console.log(`Spawning zotify with arg: ${arg}`);
+ipcMain.handle('spawn-zotify', (event, args) => {
+  console.log(`Spawning zotify with arg: ${args}`);
 
-  const zotifyInstance = spawnSync('zotify', [arg]);
+  const zotifyInstance = spawnSync('zotify', args,
+    platform() === 'win32' ? { // Prevents encoding error on windows, occurs when Zotify runs as a child and prints to terminal
+      env: { PYTHONIOENCODING: 'utf-8'}
+    } : {}
+  );
 
   if (zotifyInstance.error) {
     console.log(`Error: ${zotifyInstance.error.message}`);
@@ -49,6 +54,9 @@ ipcMain.handle('spawn-zotify', (event, arg) => {
     console.log(`STDOUT: \n${zotifyInstance.stdout}`);
     console.log(`STDERR: \n${zotifyInstance.stderr}`);
     console.log(`STATUS: ${zotifyInstance.status}`);
-    return new TextDecoder().decode(zotifyInstance.stdout);
+    return [
+      `STDOUT: ${new TextDecoder().decode(zotifyInstance.stdout)}`,
+      `STDERR: ${new TextDecoder().decode(zotifyInstance.stderr)}`,
+    ];
   }
 });
