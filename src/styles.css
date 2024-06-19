@@ -3,6 +3,11 @@
   align-items: center;
 }
 
+.flex-column {
+  display: flex;
+  flex-flow: column;
+}
+
 body {
   display: flex;
   align-items: center;
@@ -66,7 +71,17 @@ main {
 }
 
 .download {
+  border: 1px #999 solid;
+  border-radius: 10px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  margin: 5px;
+}
+
+.download img {
+  height: 25px;
 }
 
 img {
