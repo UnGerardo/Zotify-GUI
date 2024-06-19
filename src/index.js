@@ -12,7 +12,7 @@ const createWindow = () => {
     width: 900,
     minWidth: 850,
     height: 800,
-    maxHeight: 927,
+    maxHeight: 1010,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
@@ -40,7 +40,7 @@ app.on('window-all-closed', () => {
 ipcMain.handle('spawn-zotify', (event, arg) => {
   console.log(`Spawning zotify with arg: ${arg}`);
 
-  const zotifyInstance = spawnSync('zotify', ['-h']);
+  const zotifyInstance = spawnSync('zotify', [arg]);
 
   if (zotifyInstance.error) {
     console.log(`Error: ${zotifyInstance.error.message}`);
