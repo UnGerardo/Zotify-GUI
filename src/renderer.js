@@ -36,6 +36,8 @@ $runZotifyBtn.addEventListener('click', async () => {
       break;
     }
     default:
-
+      console.log('Error, something went wrong');
+      console.log(zotifyOutput[0]);
+      console.log(zotifyOutput[1]);
   }
 });
