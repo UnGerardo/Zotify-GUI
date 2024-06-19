@@ -17,5 +17,25 @@ $runZotifyBtn.addEventListener('click', async () => {
   ];
 
   const zotifyOutput = await window.electronAPI.spawnZotify(args);
-  console.log(zotifyOutput);
+
+  switch(zotifyOutput[0]) {
+    case 'Downloaded': {
+      const temp = zotifyOutput[1].split('Downloaded "')[1];
+      const endIndex = temp.indexOf('" to ');
+      const trackInfo = temp.substring(0, endIndex - 1);
+
+      const [artistName, trackName] = trackInfo.split(' - ');
+      break;
+    }
+    case 'SKIPPING': {
+      const temp = zotifyOutput[1].split('SKIPPING: ')[1];
+      const endIndex = temp.indexOf('(SONG ALREADY EXISTS)');
+      const trackInfo = temp.substring(0, endIndex - 1);
+
+      const [artistName, trackName] = trackInfo.split(' - ');
+      break;
+    }
+    default:
+
+  }
 });

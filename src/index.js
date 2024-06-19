@@ -43,20 +43,31 @@ ipcMain.handle('spawn-zotify', (event, args) => {
 
   const zotifyInstance = spawnSync('zotify', args,
     platform() === 'win32' ? { // Prevents encoding error on windows, occurs when Zotify runs as a child and prints to terminal
-      env: { PYTHONIOENCODING: 'utf-8'}
+      env: { PYTHONIOENCODING: 'utf-8' }
     } : {}
   );
 
   if (zotifyInstance.error) {
-    console.log(`Error: ${zotifyInstance.error.message}`);
-    return new TextDecoder().decode(zotifyInstance.error.message);
+    const ERROR = new TextDecoder().decode(zotifyInstance.error.message).replace(/\s+/g, ' ');
+    console.log(`Error: ${ERROR}`);
+    return ['Error', ERROR];
   } else {
-    console.log(`STDOUT: \n${zotifyInstance.stdout}`);
-    console.log(`STDERR: \n${zotifyInstance.stderr}`);
-    console.log(`STATUS: ${zotifyInstance.status}`);
-    return [
-      `STDOUT: ${new TextDecoder().decode(zotifyInstance.stdout)}`,
-      `STDERR: ${new TextDecoder().decode(zotifyInstance.stderr)}`,
-    ];
+    const STDOUT = new TextDecoder().decode(zotifyInstance.stdout).replace(/\s+/g, ' ');
+    const STDERR = new TextDecoder().decode(zotifyInstance.stderr).replace(/\s+/g, ' ');
+    const STATUS = zotifyInstance.status;
+
+    console.log(`STDOUT: \n${STDOUT}`);
+    console.log(`STDERR: \n${STDERR}`);
+    console.log(`STATUS: ${STATUS}`);
+
+    if (STDOUT.includes('Downloaded')) {
+      return ['Downloaded', STDOUT];
+    }
+    else if (STDOUT.includes('SKIPPING')) {
+      return ['SKIPPING', STDOUT];
+    }
+    else {
+      return ['Error', STDERR];
+    }
   }
 });
