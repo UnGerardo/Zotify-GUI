@@ -19,32 +19,29 @@ $runZotifyBtn.addEventListener('click', async () => {
     '--print-downloads=True',
   ];
 
-  const zotifyOutput = await window.electronAPI.spawnZotify(args);
+  const [ status, output ] = await window.electronAPI.spawnZotify(args);
 
-  switch(zotifyOutput[0]) {
+  switch(status) {
     case 'Downloaded': {
-      const temp = zotifyOutput[1]['stdout'].split('Downloaded "')[1];
+      const temp = output['stdout'].split('Downloaded "')[1];
       const endIndex = temp.indexOf('" to ');
       const trackInfo = temp.substring(0, endIndex);
 
       const [artistName, trackName] = trackInfo.split(' - ');
-      $renderDownload(trackName, artistName, 'd');
+      $renderDownload(trackName, artistName, status);
       break;
     }
     case 'SKIPPING': {
-      const temp = zotifyOutput[1]['stdout'].split('SKIPPING: ')[1];
+      const temp = output['stdout'].split('SKIPPING: ')[1];
       const endIndex = temp.indexOf('(SONG ALREADY EXISTS)');
       const trackInfo = temp.substring(0, endIndex - 1);
 
       const [artistName, trackName] = trackInfo.split(' - ');
-      $renderDownload(trackName, artistName, 's');
+      $renderDownload(trackName, artistName, status);
       break;
     }
     default:
-      console.log(`STATUS: ${zotifyOutput[0]}`);
-      console.log(`STDERR: ${zotifyOutput[1]['stderr']}`);
-
-      $renderDownload(zotifyOutput[0], zotifyOutput[1]['stderr'], 'e');
+      $renderDownload(status, output['stderr'], status);
   }
 });
 
@@ -61,9 +58,10 @@ function $renderDownload(trackName, artistName, status) {
   $artistName.innerText = artistName;
 
   const iconNames = {
-    'd': 'greenCheck.png',
-    's': 'skipped.png',
-    'e': 'redX.png'
+    'Downloaded': 'greenCheck.png',
+    'SKIPPING': 'skipped.png',
+    'Unknown': 'redX.png',
+    'Error': 'redX.png'
   }
 
   const $icon = document.createElement('img');
