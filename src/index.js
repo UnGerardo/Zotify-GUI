@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const { spawnSync } = require('node:child_process');
+const { spawn } = require('node:child_process');
 const { platform } = require('node:os');
 const path = require('node:path');
 
@@ -39,35 +39,43 @@ app.on('window-all-closed', () => {
 });
 
 ipcMain.handle('spawn-zotify', (event, args) => {
-  console.log(`Spawning zotify with arg: ${args}`);
+  return new Promise((resolve, reject) => {
+    const zotifyInstance = spawn('zotify', args,
+      platform() === 'win32' ? { // Prevents encoding error on windows, occurs when Zotify runs as a child and prints to terminal
+        env: { PYTHONIOENCODING: 'utf-8' }
+      } : {}
+    );
 
-  const zotifyInstance = spawnSync('zotify', args,
-    platform() === 'win32' ? { // Prevents encoding error on windows, occurs when Zotify runs as a child and prints to terminal
-      env: { PYTHONIOENCODING: 'utf-8' }
-    } : {}
-  );
+    let STDOUT = '';
+    let STDERR = '';
 
-  if (zotifyInstance.error) {
-    const ERROR = new TextDecoder().decode(zotifyInstance.error.message).replace(/\s+/g, ' ');
-    console.log(`Error: ${ERROR}`);
-    return ['Error', ERROR];
-  } else {
-    const STDOUT = new TextDecoder().decode(zotifyInstance.stdout).replace(/\s+/g, ' ');
-    const STDERR = new TextDecoder().decode(zotifyInstance.stderr).replace(/\s+/g, ' ');
-    const STATUS = zotifyInstance.status;
+    zotifyInstance.stdout.on('data', (data) => {
+      STDOUT += data;
+    });
+    zotifyInstance.stderr.on('data', (data) => {
+      STDERR += data;
+    });
 
-    console.log(`STDOUT: \n${STDOUT}`);
-    console.log(`STDERR: \n${STDERR}`);
-    console.log(`STATUS: ${STATUS}`);
+    zotifyInstance.on('close', (code) => {
+      let status = 'Unknown';
 
-    if (STDOUT.includes('Downloaded')) {
-      return ['Downloaded', STDOUT];
-    }
-    else if (STDOUT.includes('SKIPPING')) {
-      return ['SKIPPING', STDOUT];
-    }
-    else {
-      return ['Error', STDERR];
-    }
-  }
+      if (STDOUT.includes('Downloaded')) {
+        status = 'Downloaded';
+      } else if (STDOUT.includes('SKIPPING')) {
+        status = 'SKIPPING';
+      }
+
+      resolve([
+        status,
+        {
+          stdout: STDOUT.replace(/\s+/g, ' '),
+          stderr: STDERR.replace(/\s+/g, ' '),
+        }
+      ]);
+    });
+
+    zotifyInstance.on('error', (err) => {
+      reject(['Error', err]);
+    });
+  });
 });
