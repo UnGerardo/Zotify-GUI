@@ -46,7 +46,7 @@
               <img src="../icons/info.png" alt="info icon">
               <label for="output">Output</label>
             </section>
-            <input name="output" type="text">
+            <input name="output" type="text" value="{album}/{artist} - {song_name}.{ext}">
           </section>
           <!-- Option: Song Archive -->
           <section class="parameter">
@@ -54,7 +54,7 @@
               <img src="../icons/info.png" alt="info icon">
               <label for="song-archive">Song Archive</label>
             </section>
-            <input name="song-archive" type="text">
+            <input name="song-archive" type="text" value="">
           </section>
           <!-- Option: Root Path -->
           <section class="parameter">
@@ -154,9 +154,9 @@
           <section class="parameter">
             <section class="flex-align-center">
               <img src="../icons/info.png" alt="info icon">
-              <label for="skip-existing-files">Skip Existing Files</label>
+              <label for="skip-existing">Skip Existing Files</label>
             </section>
-            <select name="skip-existing-files">
+            <select name="skip-existing">
               <option value="true">True</option>
               <option value="false">False</option>
             </select>
@@ -214,8 +214,8 @@
               <label for="download-real-time">Download Real Time</label>
             </section>
             <select name="download-real-time">
-              <option value="true">True</option>
               <option value="false">False</option>
+              <option value="true">True</option>
             </select>
           </section>
           <!-- Option: Language -->

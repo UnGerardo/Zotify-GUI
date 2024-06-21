@@ -15,7 +15,7 @@ const $mdGenreDelimiter = document.querySelector('input[name="md-genredelimiter"
 const $downloadFormat = document.querySelector('select[name="download-format"]');
 const $downloadQuality = document.querySelector('select[name="download-quality"]');
 const $transcodeBitrate = document.querySelector('input[name="transcode-bitrate"]');
-const $skipExistingFiles = document.querySelector('select[name="skip-existing-files"]');
+const $skipExistingFiles = document.querySelector('select[name="skip-existing"]');
 const $skipPreviouslyDownloaded = document.querySelector('select[name="skip-previously-downloaded"]');
 const $retryAttempts = document.querySelector('input[name="retry-attempts"]');
 const $bulkWaitTime = document.querySelector('input[name="bulk-wait-time"]');
@@ -52,12 +52,21 @@ $runZotifyBtn.addEventListener('click', async () => {
   const language = $language.value;
   const tempDownloadDir = $tempDownloadDir.value;
 
+  if (spotifyUrl === '') {
+    $renderDownload('Error', 'No track URL provided.', 'Error');
+    return;
+  }
+
+  if (username === '' || password === '') {
+    $renderDownload('Error', 'Username or password not provided.', 'Error');
+    return;
+  }
+
   const args = [
     spotifyUrl,
     `--username=${username}`,
     `--password=${password}`,
     `--output=${output}`,
-    `--song-archive=${songArchive}`,
     `--root-path=${rootPath}`,
     `--root-podcast-path=${rootPodcastPath}`,
     `--split-album-discs=${splitAlbumDiscs}`,
@@ -67,7 +76,7 @@ $runZotifyBtn.addEventListener('click', async () => {
     `--download-format=${downloadFormat}`,
     `--download-quality=${downloadQuality}`,
     `--transcode-bitrate=${transcodeBitrate}`,
-    `--skip-existing-files=${skipExistingFiles}`,
+    `--skip-existing=${skipExistingFiles}`,
     `--skip-previously-downloaded=${skipPreviouslyDownloaded}`,
     `--retry-attempts=${retryAttempts}`,
     `--bulk-wait-time=${bulkWaitTime}`,
@@ -75,9 +84,15 @@ $runZotifyBtn.addEventListener('click', async () => {
     `--chunk-size=${chunkSize}`,
     `--download-real-time=${downloadRealTime}`,
     `--language=${language}`,
-    `--temp-download-dir=${tempDownloadDir}`,
     '--print-downloads=True',
   ];
+
+  if (songArchive.value) {
+    args.push(`--song-archive=${songArchive}`);
+  }
+  if (tempDownloadDir.value) {
+    args.push(`--temp-download-dir=${tempDownloadDir}`);
+  }
 
   const [ status, zotify ] = await window.electronAPI.spawnZotify(args);
 
@@ -133,3 +148,13 @@ function $renderDownload(trackName, artistName, status) {
   $download.appendChild($icon);
   $downloads.insertBefore($download, $downloads.firstChild);
 }
+
+async function fillParamDefaults() {
+  const homeDir = await window.electronAPI.homedir();
+  const platform = await window.electronAPI.platform;
+
+  $rootPath.value = platform === 'win32' ? `${homeDir}\\Zotify_Music` : `${homeDir}/Zotify_Music`;
+  $rootPodcastPath.value = platform === 'win32' ? `${homeDir}\\Zotify_Podcasts` : `${homeDir}/Zotify_Podcasts`;
+}
+
+fillParamDefaults();

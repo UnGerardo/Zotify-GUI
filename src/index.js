@@ -1,6 +1,8 @@
+require('dotenv').config();
+
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { spawn } = require('node:child_process');
-const { platform } = require('node:os');
+const { platform, homedir } = require('node:os');
 const path = require('node:path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -23,6 +25,8 @@ const createWindow = () => {
 };
 
 app.whenReady().then(() => {
+  ipcMain.handle('get-home-dir', () => homedir());
+  ipcMain.handle('get-platform', () => process.platform);
   createWindow();
 
   app.on('activate', () => {
