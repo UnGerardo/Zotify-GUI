@@ -27,6 +27,12 @@ const createWindow = () => {
 app.whenReady().then(() => {
   ipcMain.handle('get-home-dir', () => homedir());
   ipcMain.handle('get-platform', () => process.platform);
+  ipcMain.handle('get-env', () => process.env.ENV);
+  ipcMain.handle('get-spotify-test-vars', () => ({
+    trackUrl: process.env.EXAMPLE_TRACK_URL,
+    username: process.env.SPOTIFY_USERNAME,
+    password: process.env.SPOTIFY_PASSWORD
+  }));
   createWindow();
 
   app.on('activate', () => {
