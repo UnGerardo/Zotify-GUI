@@ -34,10 +34,7 @@ for (let i = 0; i < $infoImgs.length; i++) {
   $infoImgs[i].parentElement.appendChild(infoPopup);
 
   $infoImgs[i].addEventListener('mouseover', () => {
-    const parentRect = $infoImgs[i].parentElement.parentElement.parentElement.scrollTop;
-    console.log(parentRect)
     const imgRect = $infoImgs[i].getBoundingClientRect();
-    console.log(parentRect)
     infoPopup.style.top = `${imgRect.y}px`;
     infoPopup.style.left = `${imgRect.x}px`;
     infoPopup.style.display = 'block';
