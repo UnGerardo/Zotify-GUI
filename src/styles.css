@@ -96,4 +96,6 @@ img {
   color: white;
   padding: 5px 10px;
   border-radius: 10px;
+  max-width: fit-content;
+  font-size: medium;
 }
