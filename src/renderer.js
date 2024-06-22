@@ -1,3 +1,51 @@
+const PARAM_INFO = [
+  ['spotify_url', 'The url to download.'],
+  ['username', 'The Spotify username to use.'],
+  ['password', 'The Spotify password to use.'],
+  ['output', 'The output format of a downloaded song. Ex: "{artist}/{album}/{album_num} - {artist} - {song_name}.{ext}"'],
+  ['song_archive', ''],
+  ['root_path', ''],
+  ['root_podcast_path', ''],
+  ['split_album_discs', ''],
+  ['download_lyrics', ''],
+  ['md_all_genres', ''],
+  ['md_genre_delimiter', ''],
+  ['download_format', ''],
+  ['download_quality', ''],
+  ['transcode_bitrate', ''],
+  ['skip_existing', ''],
+  ['skip_previously_downloaded', ''],
+  ['retry_attempts', ''],
+  ['bulk_wait_time', ''],
+  ['override_auto_wait', ''],
+  ['chunk_size', ''],
+  ['download_real_time', ''],
+  ['language', ''],
+  ['temp_download_dir', '']
+];
+
+const $infoImgs = document.querySelectorAll('img[src="../icons/info.png"]');
+for (let i = 0; i < $infoImgs.length; i++) {
+  const infoPopup = document.createElement('p');
+  infoPopup.classList.add('info-pop-up');
+  infoPopup.innerText = PARAM_INFO[i][1];
+  infoPopup.style.display = 'none';
+
+  $infoImgs[i].parentElement.appendChild(infoPopup);
+
+  $infoImgs[i].addEventListener('mouseover', () => {
+    const parentRect = $infoImgs[i].parentElement.parentElement.parentElement.scrollTop;
+    console.log(parentRect)
+    const imgRect = $infoImgs[i].getBoundingClientRect();
+    console.log(parentRect)
+    infoPopup.style.top = `${imgRect.y}px`;
+    infoPopup.style.left = `${imgRect.x}px`;
+    infoPopup.style.display = 'block';
+  });
+  $infoImgs[i].addEventListener('mouseout', () => {
+    infoPopup.style.display = 'none';
+  });
+}
 
 const $spotifyUrl = document.querySelector('input[name="spotify-url"]');
 const $runZotifyBtn = document.getElementById('runZotify');
@@ -15,7 +63,7 @@ const $mdGenreDelimiter = document.querySelector('input[name="md-genredelimiter"
 const $downloadFormat = document.querySelector('select[name="download-format"]');
 const $downloadQuality = document.querySelector('select[name="download-quality"]');
 const $transcodeBitrate = document.querySelector('input[name="transcode-bitrate"]');
-const $skipExistingFiles = document.querySelector('select[name="skip-existing"]');
+const $skipExisting = document.querySelector('select[name="skip-existing"]');
 const $skipPreviouslyDownloaded = document.querySelector('select[name="skip-previously-downloaded"]');
 const $retryAttempts = document.querySelector('input[name="retry-attempts"]');
 const $bulkWaitTime = document.querySelector('input[name="bulk-wait-time"]');
@@ -42,7 +90,7 @@ $runZotifyBtn.addEventListener('click', async () => {
   const downloadFormat = $downloadFormat.value;
   const downloadQuality = $downloadQuality.value;
   const transcodeBitrate = $transcodeBitrate.value;
-  const skipExistingFiles = $skipExistingFiles.value;
+  const skipExisting = $skipExisting.value;
   const skipPreviouslyDownloaded = $skipPreviouslyDownloaded.value;
   const retryAttempts = $retryAttempts.value;
   const bulkWaitTime = $bulkWaitTime.value;
@@ -76,7 +124,7 @@ $runZotifyBtn.addEventListener('click', async () => {
     `--download-format=${downloadFormat}`,
     `--download-quality=${downloadQuality}`,
     `--transcode-bitrate=${transcodeBitrate}`,
-    `--skip-existing=${skipExistingFiles}`,
+    `--skip-existing=${skipExisting}`,
     `--skip-previously-downloaded=${skipPreviouslyDownloaded}`,
     `--retry-attempts=${retryAttempts}`,
     `--bulk-wait-time=${bulkWaitTime}`,

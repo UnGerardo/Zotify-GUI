@@ -89,3 +89,11 @@ img {
   height: 20px;
   padding-right: 5px;
 }
+
+.info-pop-up {
+  position: absolute;
+  background-color: #666;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
