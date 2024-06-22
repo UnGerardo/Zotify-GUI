@@ -36,6 +36,7 @@ $runZotifyBtn.addEventListener('click', async () => {
 
   const args = [
     spotifyUrl,
+    '--save-credentials=False',
     `--username=${username}`,
     `--password=${password}`,
     `--output=${output}`,
