@@ -89,7 +89,10 @@ $runZotifyBtn.addEventListener('click', async () => {
       break;
     }
     default:
-      $renderDownload(status, zotify['stderr'], status);
+      if (zotify.includes('ENOENT')) {
+        zotify += ' Ensure "zotify" is installed.';
+      }
+      $renderDownload(status, zotify, status);
   }
 });
 

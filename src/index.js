@@ -50,7 +50,7 @@ app.on('window-all-closed', () => {
 
 ipcMain.handle('spawn-zotify', (event, args) => {
   return new Promise((resolve, reject) => {
-    const zotifyInstance = spawn('zotify', args,
+    const zotifyInstance = spawn('zotifyy', args,
       platform() === 'win32' ? { // Prevents encoding error on windows, occurs when Zotify runs as a child and prints to terminal
         env: { PYTHONIOENCODING: 'utf-8' }
       } : {}
@@ -67,6 +67,9 @@ ipcMain.handle('spawn-zotify', (event, args) => {
     });
 
     zotifyInstance.on('close', (code) => {
+      if (code !== 0) {
+        resolve(['Error', code]); // not using reject because I can't get the values in main.js
+      }
       let status = 'Unknown';
 
       if (STDOUT.includes('Downloaded')) {
@@ -85,7 +88,7 @@ ipcMain.handle('spawn-zotify', (event, args) => {
     });
 
     zotifyInstance.on('error', (err) => {
-      reject(['Error', err]);
+      resolve(['Error', err]); // not using reject because I can't get the values in main.js
     });
   });
 });
