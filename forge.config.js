@@ -29,12 +29,6 @@ module.exports = {
       },
     },
     {
-      name: '@electron-forge/maker-dmg',
-      config: {
-        icon: './icons/ZotifyIcon.icns'
-      }
-    },
-    {
       name: '@electron-forge/maker-rpm',
       config: {},
     },

@@ -53,7 +53,7 @@ app.on('window-all-closed', () => {
 
 ipcMain.handle('spawn-zotify', (event, args) => {
   return new Promise((resolve, reject) => {
-    const zotifyInstance = spawn('zotifyy', args,
+    const zotifyInstance = spawn('zotify', args,
       platform() === 'win32' ? { // Prevents encoding error on windows, occurs when Zotify runs as a child and prints to terminal
         env: { PYTHONIOENCODING: 'utf-8' }
       } : {}

@@ -88,11 +88,15 @@ $runZotifyBtn.addEventListener('click', async () => {
       $renderDownload(trackName, artistName, status);
       break;
     }
-    default:
-      if (zotify.includes('ENOENT')) {
-        zotify += ' Ensure "zotify" is installed.';
+    case 'Error':
+      if (String(zotify).includes('ENOENT')) {
+        $renderDownload('Ensure "zotify" and "ffmpeg" are installed.', zotify, status);
+      } else {
+        $renderDownload(status, zotify, status);
       }
-      $renderDownload(status, zotify, status);
+      break;
+    default:
+      $renderDownload(status, zotify['stderr'], status);
   }
 });
 
