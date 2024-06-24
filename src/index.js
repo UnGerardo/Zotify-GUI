@@ -22,6 +22,7 @@ const createWindow = () => {
   });
 
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
+  mainWindow.setMenuBarVisibility(false);
 };
 
 app.whenReady().then(() => {
