@@ -1,19 +1,21 @@
 const { FusesPlugin } = require('@electron-forge/plugin-fuses');
 const { FuseV1Options, FuseVersion } = require('@electron/fuses');
+const path = require('node:path');
 
 module.exports = {
   packagerConfig: {
     asar: true,
-    icon: './icons/ZotifyIcon'
+    icon: path.join(__dirname, '/icons/icon')
   },
   rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
       config: {
+        name: 'zotify-gui',
         // An URL to an ICO file to use as the application icon (displayed in Control Panel > Programs and Features).
-        // iconUrl: 'https://url/to/icon.ico',
-        setupIcon: './icons/ZotifyIcon.ico'
+        iconUrl: 'https://raw.githubusercontent.com/UnGerardo/Zotify-GUI/main/icons/icon.ico',
+        setupIcon: path.join(__dirname, '/icons/icon.ico')
       }
     },
     {
@@ -24,7 +26,7 @@ module.exports = {
       name: '@electron-forge/maker-deb',
       config: {
         options: {
-          icon: './icons/ZotifyIcon.png'
+          icon: path.join(__dirname, '/icons/icon.png')
         }
       },
     },
